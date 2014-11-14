@@ -3,7 +3,7 @@
 #include<string.h>
 #include<math.h>
 #include<iomanip>
-#include<stdlib>
+#include<stdlib.h>
 using namespace std;
 class bowling
 {
@@ -40,7 +40,7 @@ class bowling
 		{
 			return bwl_pts;
 		}
-}
+};
 ifstream& operator >> (ifstream& in,bowling b)
 {
 	cout<<"enter bwl_pts: "<<endl;
@@ -62,7 +62,7 @@ ofstream& operator << (ofstream& out,bowling b)
 	out<<"runs given: "<<b.runs<<endl;
 	out<<"bowling economy is: "<<b.eco<<endl;
 	out<<"wickets taken: "<<b.wkts<<endl;
-	out<<"bowling speed: "<<b.speed<<endl;
+	out<<"bowling speed: "<<b.spd<<endl;
 }
 class bat {
     //members:
@@ -77,7 +77,7 @@ class bat {
 		int num_ball;     
 	//functions:     
 	public:         
-		void bat()      //default constructor       
+		bat()      //default constructor       
 		{             
 			bat_points=0;             
 			high_score=0;             
@@ -93,7 +93,7 @@ class bat {
 		void change_stats(int scr)         
 		{             
 			num_ball++;             
-			if(!scr=-1)             
+			if(!(scr==-1))             
 				score+=scr;             
 			average=score/num_ball;          
 		}  
@@ -106,7 +106,7 @@ istream& operator >>(istream& in, bat b)
 	in>>b.bat_type;         
 	cout<<"Enter batsman's high score: "<<endl;         
 	in>>b.high_score;         
-	cout<"Enter number of centuries and half-centuries: "<<endl;         
+	cout<<"Enter number of centuries and half-centuries: "<<endl;         
 	in>>b.cent>>b.half_cent;  
 } 
 ostream& operator <<(ostream& out, bat b) 
@@ -117,4 +117,8 @@ ostream& operator <<(ostream& out, bat b)
 	out<<"High score: "<<b.high_score<<endl;     
 	out<<"Centuries: "<<b.cent<<endl;     
 	out<<"Half Centuries: "<<b.half_cent<<endl; 
+}
+int main()
+{
+	return 0;
 }
