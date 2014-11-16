@@ -32,8 +32,8 @@ class bowl
 			spd=0;
 		}
 
-		friend ifstream& operator >> (ifstream& in,bowling b);
-		friend ofstream& operator << (ofstream& out,bowling b);
+		void get_bwl();
+		void put_bwl();
 
 		void bwl_cs(int ball,int speed)
 		{
@@ -49,29 +49,29 @@ class bowl
 		}
 };
 
-ifstream& operator >> (ifstream& in,bowl b)
+void bowl::get_bwl()
 {
 	cout<<"enter bwl_pts: "<<endl;
-	in>>b.bwl_pts;
+	cin>>b.bwl_pts;
 	cout<<"enter bwl_typ: "<<endl;
-	in>>b.bwl_typ;
+	cin>>b.bwl_typ;
 	cout<<"enter economy: "<<endl;
-	in>>b.eco;
+	cin>>b.eco;
 	cout<<"enter wickets: "<<endl;
-	in>>b.wkts;
+	cin>>b.wkts;
 	cout<<"enter bowling speed: "<<endl;
-	in>>b.spd;
+	cin>>b.spd;
 }
 
-ofstream& operator << (ofstream& out,bowl b)
+void bowl::put_bwl()
 {
-	out<<"bowling points is: "<<b.bwl_pts<<endl;
-	out<<"bowling type is: "<<b.bwl_typ<<endl;
-	out<<"no of balls bowled: "<<b.balls<<endl;
-	out<<"runs given: "<<b.runs<<endl;
-	out<<"bowling economy is: "<<b.eco<<endl;
-	out<<"wickets taken: "<<b.wkts<<endl;
-	out<<"bowling speed: "<<b.spd<<endl;
+	cout<<"bowling points is: "<<b.bwl_pts<<endl;
+	cout<<"bowling type is: "<<b.bwl_typ<<endl;
+	cout<<"no of balls bowled: "<<b.balls<<endl;
+	cout<<"runs given: "<<b.runs<<endl;
+	cout<<"bowling economy is: "<<b.eco<<endl;
+	cout<<"wickets taken: "<<b.wkts<<endl;
+	cout<<"bowling speed: "<<b.spd<<endl;
 }
 
 class bat {
@@ -99,8 +99,8 @@ class bat {
 			strcpy(bat_type,"");         
 		}         
 
-		friend istream& operator >> (istream& in,bat b); //operator overloading extraction         
-		friend ostream& operator << (ostream& out,bat b);//operator overloading insertion         
+		void get_bat();
+		void put_bat();
 
 		void bat_cs(int scr)         
 		{             
@@ -116,45 +116,63 @@ class bat {
 		}
 }; 
 
-istream& operator >>(istream& in, bat b) 
+void bat::get_bat()
 {         
 	cout<<"Enter batsman's points: "<<endl;         
-	in>>b.bat_points;         
+	cin>>b.bat_points;         
 	cout<<"Enter batting type: "<<endl;         
-	in>>b.bat_type;         
+	cin>>b.bat_type;         
 	cout<<"Enter batsman's high score: "<<endl;         
-	in>>b.high_score;         
+	cin>>b.high_score;         
 	cout<<"Enter number of centuries and half-centuries: "<<endl;         
-	in>>b.cent>>b.half_cent;  
+	cin>>b.cent>>b.half_cent;  
 } 
 
-ostream& operator <<(ostream& out, bat b) 
+void bat::put_bat()
 {     
-	out<<"Number of Balls: "<<b.num_ball<<endl;     
-	out<<"Batsman's points: "<<b.bat_points<<endl;     
-	out<<"Batting type: "<<b.bat_type<<endl;     
-	out<<"High score: "<<b.high_score<<endl;     
-	out<<"Centuries: "<<b.cent<<endl;     
-	out<<"Half Centuries: "<<b.half_cent<<endl; 
+	cout<<"Number of Balls: "<<b.num_ball<<endl;     
+	cout<<"Batsman's points: "<<b.bat_points<<endl;     
+	cout<<"Batting type: "<<b.bat_type<<endl;     
+	cout<<"High score: "<<b.high_score<<endl;     
+	cout<<"Centuries: "<<b.cent<<endl;     
+	cout<<"Half Centuries: "<<b.half_cent<<endl; 
 }
 
 class player:public bat,public bowl
 {
 	private:
 		char nm[30];
-		int age;
 		pairup p;
 	public:
 		player()
 		{
 			strcpy(nm,"");
 			age=0;
-			
 		}
+		
+		friend istream& operator >>(istream& in, player p);
+		friend ostream& operator <<(ostream& out,player p);
 }
+istream& operator >> (istream& in,player p)
+{
+	cout<<"enter batting data:"<<endl;
+    get_bat();
+	cout<<"enter bowling data:"<<endl;
+	get_bwl();
+}
+ostream& operator <<(ostream& out,player p)
+{
+	cout<<"player name: "<<nm<<endl<<endl;
+	cout<<"batting data:"<<endl;
+	put_bat();
+	cout<<"bowling data:"<<endl;
+	put_bwl();
+}
+
 class team
 {
 	
+}
 
 int randomize()
 {
