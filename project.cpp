@@ -7,6 +7,9 @@
 #include<time.h>
 using namespace std;
 
+enum pairup{gg,gb,bg,bb};
+int arr[4][10]={{-1,-1,-1,0,1,2,4,4,6,6},{-1,-1,1,2,2,4,4,6,6,6},{-1,-1,-1,0,0,1,2,2,4,4},{	-1,-1,0,0,1,1,1,2,2,2}}
+
 class bowl
 {
 	private:
@@ -32,7 +35,7 @@ class bowl
 		friend ifstream& operator >> (ifstream& in,bowling b);
 		friend ofstream& operator << (ofstream& out,bowling b);
 
-		void change_stats(int ball,int speed)
+		void bwl_cs(int ball,int speed)
 		{
 			if(ball==-1)
 				wkts++;
@@ -99,7 +102,7 @@ class bat {
 		friend istream& operator >> (istream& in,bat b); //operator overloading extraction         
 		friend ostream& operator << (ostream& out,bat b);//operator overloading insertion         
 
-		void change_stats(int scr)         
+		void bat_cs(int scr)         
 		{             
 			num_ball++;             
 			if(!(scr==-1))             
@@ -135,13 +138,23 @@ ostream& operator <<(ostream& out, bat b)
 	out<<"Half Centuries: "<<b.half_cent<<endl; 
 }
 
-class player:public bal,public bowl
+class player:public bat,public bowl
 {
 	private:
-		
+		char nm[30];
+		int age;
+		pairup p;
 	public:
-	
+		player()
+		{
+			strcpy(nm,"");
+			age=0;
+			
+		}
 }
+class team
+{
+	
 
 int randomize()
 {
