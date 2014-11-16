@@ -8,7 +8,7 @@
 using namespace std;
 
 enum pairup{gg,gb,bg,bb};
-int arr[4][10]={{-1,-1,-1,0,1,2,4,4,6,6},{-1,-1,1,2,2,4,4,6,6,6},{-1,-1,-1,0,0,1,2,2,4,4},{	-1,-1,0,0,1,1,1,2,2,2}}
+int arr[4][10]={{-1,-1,-1,0,1,2,4,4,6,6},{-1,-1,1,2,2,4,4,6,6,6},{-1,-1,-1,0,0,1,2,2,4,4},{	-1,-1,0,0,1,1,1,2,2,2}};
 
 class bowl
 {
@@ -52,26 +52,26 @@ class bowl
 void bowl::get_bwl()
 {
 	cout<<"enter bwl_pts: "<<endl;
-	cin>>b.bwl_pts;
+	cin>>bwl_pts;
 	cout<<"enter bwl_typ: "<<endl;
-	cin>>b.bwl_typ;
+	cin>>bwl_typ;
 	cout<<"enter economy: "<<endl;
-	cin>>b.eco;
+	cin>>eco;
 	cout<<"enter wickets: "<<endl;
-	cin>>b.wkts;
+	cin>>wkts;
 	cout<<"enter bowling speed: "<<endl;
-	cin>>b.spd;
+	cin>>spd;
 }
 
 void bowl::put_bwl()
 {
-	cout<<"bowling points is: "<<b.bwl_pts<<endl;
-	cout<<"bowling type is: "<<b.bwl_typ<<endl;
-	cout<<"no of balls bowled: "<<b.balls<<endl;
-	cout<<"runs given: "<<b.runs<<endl;
-	cout<<"bowling economy is: "<<b.eco<<endl;
-	cout<<"wickets taken: "<<b.wkts<<endl;
-	cout<<"bowling speed: "<<b.spd<<endl;
+	cout<<"bowling points is: "<<bwl_pts<<endl;
+	cout<<"bowling type is: "<<bwl_typ<<endl;
+	cout<<"no of balls bowled: "<<balls<<endl;
+	cout<<"runs given: "<<runs<<endl;
+	cout<<"bowling economy is: "<<eco<<endl;
+	cout<<"wickets taken: "<<wkts<<endl;
+	cout<<"bowling speed: "<<spd<<endl;
 }
 
 class bat {
@@ -119,23 +119,23 @@ class bat {
 void bat::get_bat()
 {         
 	cout<<"Enter batsman's points: "<<endl;         
-	cin>>b.bat_points;         
+	cin>>bat_points;         
 	cout<<"Enter batting type: "<<endl;         
-	cin>>b.bat_type;         
+	cin>>bat_type;         
 	cout<<"Enter batsman's high score: "<<endl;         
-	cin>>b.high_score;         
+	cin>>high_score;         
 	cout<<"Enter number of centuries and half-centuries: "<<endl;         
-	cin>>b.cent>>b.half_cent;  
+	cin>>cent>>half_cent;  
 } 
 
 void bat::put_bat()
 {     
-	cout<<"Number of Balls: "<<b.num_ball<<endl;     
-	cout<<"Batsman's points: "<<b.bat_points<<endl;     
-	cout<<"Batting type: "<<b.bat_type<<endl;     
-	cout<<"High score: "<<b.high_score<<endl;     
-	cout<<"Centuries: "<<b.cent<<endl;     
-	cout<<"Half Centuries: "<<b.half_cent<<endl; 
+	cout<<"Number of Balls: "<<num_ball<<endl;     
+	cout<<"Batsman's points: "<<bat_points<<endl;     
+	cout<<"Batting type: "<<bat_type<<endl;     
+	cout<<"High score: "<<high_score<<endl;     
+	cout<<"Centuries: "<<cent<<endl;     
+	cout<<"Half Centuries: "<<half_cent<<endl; 
 }
 
 class player:public bat,public bowl
@@ -147,20 +147,24 @@ class player:public bat,public bowl
 		player()
 		{
 			strcpy(nm,"");
-			age=0;
 		}
-		
-		friend istream& operator >>(istream& in, player p);
-		friend ostream& operator <<(ostream& out,player p);
-}
-istream& operator >> (istream& in,player p)
+		void cpy_nm(char* str)
+		{
+			strcpy(nm,str);
+		}
+		void get_player();
+		void put_player();
+};
+void player::get_player()
 {
+	cout<<"enter player name:"<<endl;
+	cin>>nm;
 	cout<<"enter batting data:"<<endl;
     get_bat();
 	cout<<"enter bowling data:"<<endl;
 	get_bwl();
 }
-ostream& operator <<(ostream& out,player p)
+void player::put_player()
 {
 	cout<<"player name: "<<nm<<endl<<endl;
 	cout<<"batting data:"<<endl;
@@ -172,7 +176,7 @@ ostream& operator <<(ostream& out,player p)
 class team
 {
 	
-}
+};
 
 int randomize()
 {
