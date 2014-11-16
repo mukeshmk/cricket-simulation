@@ -4,8 +4,10 @@
 #include<math.h>
 #include<iomanip>
 #include<stdlib.h>
+#include<time.h>
 using namespace std;
-class bowling
+
+class bowl
 {
 	private:
 		int bwl_pts;
@@ -16,7 +18,7 @@ class bowling
 		int wkts;
 		float spd;
 	public:
-		bowling()
+		bowl()
 		{
 			bwl_pts=0;
 			runs=0;
@@ -26,8 +28,10 @@ class bowling
 			wkts=0;
 			spd=0;
 		}
+
 		friend ifstream& operator >> (ifstream& in,bowling b);
 		friend ofstream& operator << (ofstream& out,bowling b);
+
 		void change_stats(int ball,int speed)
 		{
 			if(ball==-1)
@@ -36,12 +40,13 @@ class bowling
 			balls++;
 			eco=(balls/wkts);
 		}
-		int ret_pts()
+		int ret_bwlpts()
 		{
 			return bwl_pts;
 		}
 };
-ifstream& operator >> (ifstream& in,bowling b)
+
+ifstream& operator >> (ifstream& in,bowl b)
 {
 	cout<<"enter bwl_pts: "<<endl;
 	in>>b.bwl_pts;
@@ -54,7 +59,8 @@ ifstream& operator >> (ifstream& in,bowling b)
 	cout<<"enter bowling speed: "<<endl;
 	in>>b.spd;
 }
-ofstream& operator << (ofstream& out,bowling b)
+
+ofstream& operator << (ofstream& out,bowl b)
 {
 	out<<"bowling points is: "<<b.bwl_pts<<endl;
 	out<<"bowling type is: "<<b.bwl_typ<<endl;
@@ -64,6 +70,7 @@ ofstream& operator << (ofstream& out,bowling b)
 	out<<"wickets taken: "<<b.wkts<<endl;
 	out<<"bowling speed: "<<b.spd<<endl;
 }
+
 class bat {
     //members:
 	private:
@@ -88,16 +95,24 @@ class bat {
 			num_ball=0;             
 			strcpy(bat_type,"");         
 		}         
+
 		friend istream& operator >> (istream& in,bat b); //operator overloading extraction         
 		friend ostream& operator << (ostream& out,bat b);//operator overloading insertion         
+
 		void change_stats(int scr)         
 		{             
 			num_ball++;             
 			if(!(scr==-1))             
 				score+=scr;             
 			average=score/num_ball;          
-		}  
+		}
+
+		int ret_batpts()
+		{
+			return bat_points;
+		}
 }; 
+
 istream& operator >>(istream& in, bat b) 
 {         
 	cout<<"Enter batsman's points: "<<endl;         
@@ -109,6 +124,7 @@ istream& operator >>(istream& in, bat b)
 	cout<<"Enter number of centuries and half-centuries: "<<endl;         
 	in>>b.cent>>b.half_cent;  
 } 
+
 ostream& operator <<(ostream& out, bat b) 
 {     
 	out<<"Number of Balls: "<<b.num_ball<<endl;     
@@ -118,6 +134,22 @@ ostream& operator <<(ostream& out, bat b)
 	out<<"Centuries: "<<b.cent<<endl;     
 	out<<"Half Centuries: "<<b.half_cent<<endl; 
 }
+
+class player:public bal,public bowl
+{
+	private:
+		
+	public:
+	
+}
+
+int randomize()
+{
+	time_t t;
+	srand((unsigned) time(&t));
+	return(rand()%10);
+}
+
 int main()
 {
 	return 0;
