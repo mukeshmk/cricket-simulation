@@ -10,16 +10,19 @@ using namespace std;
 enum pairup{gg,gb,bg,bb};
 int arr[4][10]={{-1,-1,-1,0,1,2,4,4,6,6},{-1,-1,1,2,2,4,4,6,6,6},{-1,-1,-1,0,0,1,2,2,4,4},{	-1,-1,0,0,1,1,1,2,2,2}};
 
+class team;
 class bowl
 {
-	private:
+	private:	
 		int bwl_pts;
+		char bwl_typ[30];
+		
 		int balls;
 		int runs;
-		char bwl_typ[30];
 		float eco;
 		int wkts;
 		float spd;
+		friend class team;
 	public:
 		bowl()
 		{
@@ -71,7 +74,7 @@ void bowl::put_bwl()
 	cout<<"runs given: "<<runs<<endl;
 	cout<<"bowling economy is: "<<eco<<endl;
 	cout<<"wickets taken: "<<wkts<<endl;
-	cout<<"bowling speed: "<<spd<<endl;
+	cout<<"bowling speed: "<<spd<<endl<<endl;
 }
 
 class bat {
@@ -79,12 +82,14 @@ class bat {
 	private:
 		int bat_points;
 		char bat_type[30];     
-		int high_score;     
-		float average;//str rate     
 		int cent;     
 		int half_cent;     
+		
+		int high_score;     
+		float average;//str rate     
 		int score;     
-		int num_ball;     
+		int num_ball;    
+		friend class team;
 	//functions:     
 	public:         
 		bat()      //default constructor       
@@ -135,7 +140,7 @@ void bat::put_bat()
 	cout<<"Batting type: "<<bat_type<<endl;     
 	cout<<"High score: "<<high_score<<endl;     
 	cout<<"Centuries: "<<cent<<endl;     
-	cout<<"Half Centuries: "<<half_cent<<endl; 
+	cout<<"Half Centuries: "<<half_cent<<endl<<endl; 
 }
 
 class player:public bat,public bowl
@@ -143,6 +148,7 @@ class player:public bat,public bowl
 	private:
 		char nm[30];
 		pairup p;
+		friend class team;
 	public:
 		player()
 		{
@@ -167,17 +173,55 @@ void player::get_player()
 void player::put_player()
 {
 	cout<<"player name: "<<nm<<endl<<endl;
-	cout<<"batting data:"<<endl;
+	cout<<"batting data:"<<endl<<endl;
 	put_bat();
-	cout<<"bowling data:"<<endl;
+	cout<<"bowling data:"<<endl<<endl;
 	put_bwl();
 }
 
 class team
 {
-	
+	private:         
+		char team_nm[30];         
+		player p[11];
+		friend class player;
+	public:         
+		team()//default constructor         
+		{             
+			strcpy(team_nm,"");         
+		}         
+		void input()         
+		{             
+			cout<<"Enter the team's name: "<<endl;             
+			cin>>team_nm;         
+		}         
+		void output()         
+		{             
+			cout<<"The team's name: "<<team_nm<<endl<<endl;
+			for(int i=0;i<11;i++)
+				p[i].put_player();
+		}
+		void read_playerinfo();
 };
-
+void team::read_playerinfo()
+{
+	fstream file("playerinfo.txt",ios::in);
+	if(!file)
+	{
+		cout<<"file not opened !!"<<endl;
+		return ;
+	}
+	for(int i=0;i<11;i++)
+	{
+		file>>p[i].nm;
+		file>>p[i].bat_points;
+		file>>p[i].bat_type;
+		file>>p[i].cent;
+		file>>p[i].half_cent;
+		file>>p[i].bwl_pts;
+		file>>p[i].bwl_typ;
+	}
+}
 int randomize()
 {
 	time_t t;
@@ -187,5 +231,9 @@ int randomize()
 
 int main()
 {
+	team t1;
+	t1.input();
+	t1.read_playerinfo();
+	t1.output();
 	return 0;
 }
