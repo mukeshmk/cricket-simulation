@@ -207,6 +207,21 @@ class team
 			for(int i=0;i<11;i++)
 				p[i].put_player();
 		}
+        int cmp_player(player pl)
+        {
+            int temp0=p[0].ret_batpts();
+            int temp1=pl.ret_bwlpts();
+            if((temp0>7)&&(temp1>7))
+                return 0;
+            else if((temp0>7)&&(temp1<=7))
+                return 1;
+            else if((temp0<=7)&&(temp1>7))
+                return 2;
+            else if((temp0<=7)&&(temp1<=7))
+                return 4;
+            return -1;
+        }
+
 };
 int team::tno = 0;
 void team::read_playerinfo()
@@ -272,6 +287,11 @@ void save_file(team &t1,team &t2)
 	file.write((char*)&t1,sizeof(team));
 	file.write((char*)&t2,sizeof(team));
 	file.close();
+}
+int arr_sel(int no)
+{
+	int runs[10],i;
+	if(no==1
 }
 int main()
 {
