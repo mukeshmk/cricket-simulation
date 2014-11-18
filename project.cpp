@@ -289,6 +289,13 @@ void save_file(team &t1,team &t2)
 	file.write((char*)&t2,sizeof(team));
 	file.close();
 }
+int score_calc(int no)
+{
+	int runs[10],i;
+	for(i=0;i<10;i++)
+		runs[i]=arr[no][i];
+	return runs[randomize()];
+}
 int main()
 {
 	team t1,t2;
@@ -297,5 +304,6 @@ int main()
 	save_file(t1,t2);
 	t1.output();
 	t2.output();
+	cout<<score_calc(1);
 	return 0;
 }
