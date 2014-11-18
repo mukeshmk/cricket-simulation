@@ -42,7 +42,8 @@ class bowl
 		{
 			if(ball==-1)
 				wkts++;
-			runs+=ball;
+			else
+				runs+=ball;
 			balls++;
 			eco=(balls/wkts);
 		}
