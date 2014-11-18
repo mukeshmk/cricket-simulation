@@ -7,10 +7,10 @@
 #include<time.h>
 using namespace std;
 
+class team;
 enum pairup{gg,gb,bg,bb};
 int arr[4][10]={{-1,-1,-1,0,1,2,4,4,6,6},{-1,-1,1,2,2,4,4,6,6,6},{-1,-1,-1,0,0,1,2,2,4,4},{	-1,-1,0,0,1,1,1,2,2,2}};
 
-class team;
 class bowl
 {
 	private:	
@@ -181,19 +181,25 @@ void player::put_player()
 
 class team
 {
-	private:         
+	private:
+		static int tno;
+		int teamno;
 		char team_nm[30];         
 		player p[11];
 		friend class player;
 	public:         
 		team()//default constructor         
 		{             
-			strcpy(team_nm,"");         
-		}         
+			strcpy(team_nm,"");
+			tno++;
+			teamno=tno;
+		}
+		void read_playerinfo();		
 		void input()         
 		{             
-			cout<<"Enter the team's name: "<<endl;             
-			cin>>team_nm;         
+			cout<<teamno<<"Enter the team's name: "<<endl;             
+			cin>>team_nm;
+			read_playerinfo();
 		}         
 		void output()         
 		{             
@@ -201,25 +207,51 @@ class team
 			for(int i=0;i<11;i++)
 				p[i].put_player();
 		}
-		void read_playerinfo();
 };
+int team::tno = 0;
 void team::read_playerinfo()
 {
+	int i;
+	player p1;
 	fstream file("playerinfo.txt",ios::in);
 	if(!file)
 	{
 		cout<<"file not opened !!"<<endl;
 		return ;
 	}
-	for(int i=0;i<11;i++)
+	if(teamno==1)
+		for(i=0;i<11;i++)
+		{
+			file>>p[i].nm;
+			file>>p[i].bat_points;
+			file>>p[i].bat_type;
+			file>>p[i].cent;
+			file>>p[i].half_cent;
+			file>>p[i].bwl_pts;
+			file>>p[i].bwl_typ;
+		}
+	else if(teamno==2)
 	{
-		file>>p[i].nm;
-		file>>p[i].bat_points;
-		file>>p[i].bat_type;
-		file>>p[i].cent;
-		file>>p[i].half_cent;
-		file>>p[i].bwl_pts;
-		file>>p[i].bwl_typ;
+		for(i=0;i<11;i++)
+		{
+			file>>p1.nm;
+			file>>p1.bat_points;
+			file>>p1.bat_type;
+			file>>p1.cent;
+			file>>p1.half_cent;
+			file>>p1.bwl_pts;
+			file>>p1.bwl_typ;
+		}
+		for(i=0;i<11;i++)
+		{
+			file>>p[i].nm;
+			file>>p[i].bat_points;
+			file>>p[i].bat_type;
+			file>>p[i].cent;
+			file>>p[i].half_cent;
+			file>>p[i].bwl_pts;
+			file>>p[i].bwl_typ;
+		}
 	}
 }
 int randomize()
@@ -229,11 +261,25 @@ int randomize()
 	return(rand()%10);
 }
 
+void save_file(team &t1,team &t2)
+{
+	fstream file("matchdata.dat",ios::out);
+	if(!file)
+	{
+		cout<<"file not opened !!"<<endl;
+		return ;
+	}
+	file.write((char*)&t1,sizeof(team));
+	file.write((char*)&t2,sizeof(team));
+	file.close();
+}
 int main()
 {
-	team t1;
+	team t1,t2;
 	t1.input();
-	t1.read_playerinfo();
+	t2.input();
+	save_file(t1,t2);
 	t1.output();
+	t2.output();
 	return 0;
 }

@@ -9,3 +9,14 @@ Kurama 3 left 0 3 9 fast
 Kabuto 2 right 0 2 9 fast
 Shikamaru 4 right 1 5 10 spin
 Choji 1 right 1	3 10 spin
+Naruto 9 left 23 59 3 spin
+Kakashi 10 right 34 73 6 fast
+Sasuke 10 right 47 49 2 fast
+Pain 8 left 12 104 5 spin
+Minato 8 right 34 34 7 spin
+Jiraya 8 left 13 25 8 fast
+Orochimaru 4 right 0 7 9 fast
+Kurama 3 left 0 3 9 fast
+Kabuto 2 right 0 2 9 fast
+Shikamaru 4 right 1 5 10 spin
+Choji 1 right 1	3 10 qwer
