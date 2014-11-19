@@ -9,7 +9,7 @@ using namespace std;
 
 class team;
 //int arr[4][10] ={{1,2,3,4,5,6,7,8,9,10},{11,12,13,14,15,16,17,18,19,20},{21,22,23,24,25,26,27,28,29,30},{31,32,33,34,35,36,37,38,39,40}};
-int arr[4][10]={{-1,-1,0,0,1,2,4,4,6,6},{-1,-1,1,2,2,4,4,6,6,6},{-1,-1,-1,0,0,1,2,2,4,4},{	-1,-1,0,0,1,1,1,2,2,2}};
+int arr[4][10]={{-1,-1,0,0,1,2,4,4,6,6},{-1,-1,1,2,2,4,4,6,6,6},{-1,-1,-1,0,0,1,2,2,4,4},{	-1,-1,0,0,1,1,1,2,2,2}},tn;
 
 class bowl
 {
@@ -172,7 +172,7 @@ void player::get_player()
 	cout<<"enter bowling data:"<<endl;
 	get_bwl();
 }
-void player::put_player(int x)
+void player::put_player(int x=3)
 {
 	cout<<"player name: "<<nm<<endl<<endl;
 	
@@ -228,19 +228,20 @@ class team
 		}
 		void read_playerinfo();
 		void input()
-		{             
-			cout<<"Enter the team "<<teamno<<"'s name: "<<endl;             
+		{
+			cout<<"Enter the team "<<teamno<<"'s name: "<<endl;
 			cin>>team_nm;
 			read_playerinfo();
-		}         
-		void output(int x)         
-		{             
-			cout<<"The team's name: "<<team_nm<<endl<<endl;
-			for(int i=0;i<11;i++)
-				p[i].put_player(x);
 		}
+		friend ostream& operator << (ostream& out, team &t);
 };
 int team::tno = 0;
+ostream& operator << (ostream& out, team &t)
+{             
+	out<<"The team's name: "<<t.team_nm<<endl<<endl;
+	for(int i=0;i<11;i++)
+		t.p[i].put_player(tn);
+}
 void team::read_playerinfo()
 {
 	int i;
@@ -356,7 +357,7 @@ int swap(int tn)
 }
 int main()
 {
-	int tn,i,j,k,wkt[2]={0,0};
+	int i,j,k,wkt[2]={0,0};
 	char c;
 	team t[2];
 
@@ -364,6 +365,7 @@ int main()
 	
 	t[0].input();
 	t[1].input();
+	
 	tn=cointoss(t[0].retnm(),t[1].retnm());
 	c=getchar();
 	
@@ -409,7 +411,8 @@ int main()
 				{
 					cout<<"ALL OUT !!!!!"<<endl;
 					c=getchar();
-					t[tn].output(tn);
+					//t[tn].output(tn);
+					cout<<t[tn]<<endl;
 					break;
 				}
 				c=getchar();
@@ -441,14 +444,16 @@ int main()
 		tn=swap(tn);
 		cout<<"\n\n\n"<<t[tn].retnm()<<" WON THE MATCH !!!!!"<<endl;
 		c=getchar();
-		t[tn].output(3);
+		//t[tn].output(3);
+		cout<<t[tn]<<endl;
 		c=getchar();
 	}
 	else if(b>a)
 	{
 		cout<<"\n\n\n"<<t[tn].retnm()<<" WON THE MATCH !!!!!"<<endl;
 		c=getchar();
-		t[tn].output(3);
+		//t[tn].output(3);
+		cout<<t[tn]<<endl;
 		c=getchar();
 	}
 	else
