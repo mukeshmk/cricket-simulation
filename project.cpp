@@ -8,8 +8,8 @@
 using namespace std;
 
 class team;
-enum pairup{gg,gb,bg,bb};
-int arr[4][10]={{-1,-1,-1,0,1,2,4,4,6,6},{-1,-1,1,2,2,4,4,6,6,6},{-1,-1,-1,0,0,1,2,2,4,4},{	-1,-1,0,0,1,1,1,2,2,2}};
+int arr[4][10] ={{1,2,3,4,5,6,7,8,9,10},{11,12,13,14,15,16,17,18,19,20},{21,22,23,24,25,26,27,28,29,30},{31,32,33,34,35,36,37,38,39,40}};
+//int arr[4][10]={{-1,-1,0,0,1,2,4,4,6,6},{-1,-1,1,2,2,4,4,6,6,6},{-1,-1,-1,0,0,1,2,2,4,4},{	-1,-1,0,0,1,1,1,2,2,2}};
 
 class bowl
 {
@@ -26,6 +26,7 @@ class bowl
 	public:
 		bowl()
 		{
+			cout<<"mukesh"<<endl;
 			bwl_pts=0;
 			runs=0;
 			strcpy(bwl_typ,"");
@@ -57,6 +58,7 @@ class bowl
 			if(wkts!=0)
 				eco=(balls/wkts);
 			cout<<"eco"<<endl;
+			spd=speed;
 		}
 		int ret_bwlpts()
 		{
@@ -282,9 +284,7 @@ void team::read_playerinfo()
 }
 int randomize(int a=10)
 {
-	time_t t;
-	srand((unsigned) time(&t));
-	return(rand()%a);
+		return(rand()%a);
 }
 
 void save_file(team &t1,team &t2)
@@ -349,16 +349,20 @@ int main()
 	int tn,i,j,k;
 	char c;
 	team t[2];
+
+	srand(time(NULL));
 	
 	t[0].input();
 	t[1].input();
+//	t[0].output();
+//	t[1].output();
 	tn=cointoss(t[0].retnm(),t[1].retnm());
 
-	int bt=0,bw=11,r,n;
-	for(i=0;i<10;i++)
+	int bt=0,bw=10,r,n;
+	for(i=0;i<2;i++)
 	{
 		cout<<1<<endl;
-		for(j=0;j<6;j++)
+		for(j=0;j<2;j++)
 		{
 			cout<<2<<endl;
 			if(tn==0)
@@ -366,6 +370,7 @@ int main()
 			else
 				n=cmp_player(t[1].p[bt],t[0].p[bt]);
 			r=run(n);
+			cout<<"runs: "<<r<<endl;
 			cout<<3<<endl;
 			if(tn==0)
 			{
@@ -406,7 +411,7 @@ int main()
 			t[0].p[bw].put_player();
 		bw--;
 		if(i==5)
-			bw=11;
+			bw=10;
 	}
 
 	save_file(t[0],t[1]);
