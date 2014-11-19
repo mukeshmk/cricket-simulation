@@ -161,7 +161,7 @@ class player:public bat,public bowl
 			strcpy(nm,str);
 		}
 		void get_player();
-		void put_player();
+		void put_player(int);
 };
 void player::get_player()
 {
@@ -172,13 +172,28 @@ void player::get_player()
 	cout<<"enter bowling data:"<<endl;
 	get_bwl();
 }
-void player::put_player()
+void player::put_player(int x)
 {
 	cout<<"player name: "<<nm<<endl<<endl;
-	cout<<"batting data:"<<endl<<endl;
-	put_bat();
-	cout<<"bowling data:"<<endl<<endl;
-	put_bwl();
+	
+	if(x==3)
+	{
+		cout<<"batting data:"<<endl<<endl;
+		put_bat();
+		cout<<"bowling data:"<<endl<<endl;
+		put_bwl();
+	}
+	
+	if(x==0)
+	{
+		cout<<"batting data:"<<endl<<endl;
+		put_bat();
+	}
+	else
+	{
+		cout<<"bowling data:"<<endl<<endl;
+		put_bwl();
+	}
 }
 
 class team
@@ -218,11 +233,11 @@ class team
 			cin>>team_nm;
 			read_playerinfo();
 		}         
-		void output()         
+		void output(int x)         
 		{             
 			cout<<"The team's name: "<<team_nm<<endl<<endl;
 			for(int i=0;i<11;i++)
-				p[i].put_player();
+				p[i].put_player(x);
 		}
 };
 int team::tno = 0;
@@ -332,10 +347,16 @@ int cointoss(char* tmnm1, char* tmnm2)
 		return 1;
 	}
 }
-
+int swap(int tn)
+{
+	if(tn==0)
+		return 1;
+	else
+		return 0;
+}
 int main()
 {
-	int tn,i,j,k;
+	int tn,i,j,k,wkt[2]={0,0};
 	char c;
 	team t[2];
 
@@ -343,62 +364,94 @@ int main()
 	
 	t[0].input();
 	t[1].input();
-//	t[0].output();
-//	t[1].output();
 	tn=cointoss(t[0].retnm(),t[1].retnm());
-
+	c=getchar();
+	
 	int bt=0,bw=10,r,n;
-	for(i=0;i<2;i++)
+	for(k=0;k<2;k++)
 	{
-		for(j=0;j<2;j++)
+		cout<<"\n\n"<<t[tn].retnm()<<" is Batting !!"<<endl;
+		for(i=0;i<4;i++)
 		{
-			if(tn==0)
-				n=cmp_player(t[0].p[bt],t[1].p[bt]);
-			else
-				n=cmp_player(t[1].p[bt],t[0].p[bt]);
-			r=run(n);
-			cout<<"runs: "<<r<<endl;
-			if(tn==0)
+			for(j=0;j<6;j++)
 			{
-				t[0].p[bt].bat_cs(r);
-				t[1].p[bw].bwl_cs(r,100);
-			}
-			else
-			{
-				t[1].p[bt].bat_cs(r);
-				t[0].p[bw].bwl_cs(r,100);
-			}
-			if(r==-1)
-			{
-				cout<<"OUT !!!!!"<<endl;
-				t[tn].p[bt].put_player();
-				bt++;
-			}
-			else
-				t[tn].inc_run(r);
-			
-			c=getchar();
-			
-			cout<<"the team score is: "<<t[tn].ret_run()<<endl;
-			if(bt==12)
-			{
-				cout<<"ALL OUT !!!!!"<<endl;
+				if(tn==0)
+					n=cmp_player(t[0].p[bt],t[1].p[bt]);
+				else
+					n=cmp_player(t[1].p[bt],t[0].p[bt]);
+				r=run(n);
+				if(r!=-1)
+					cout<<"runs: "<<r<<endl<<5-j<<" balls left in this over !!"<<endl;
+				if(tn==0)
+				{	
+					t[0].p[bt].bat_cs(r);
+					t[1].p[bw].bwl_cs(r,100);
+				}
+				else
+				{
+					t[1].p[bt].bat_cs(r);
+					t[0].p[bw].bwl_cs(r,100);
+				}
+				if(r==-1)
+				{
+					cout<<"OUT !!!!!"<<endl;
+					t[tn].p[bt].put_player(0);
+					bt++;
+					wkt[tn]++;
+				}
+				else
+					t[tn].inc_run(r);
+				
+				cout<<"the team score is: "<<t[tn].ret_run()<<"/"<<wkt[tn]<<" in "<<i<<"."<<j+1<<" overs"<<endl;
+				if(bt==12)
+				{
+					cout<<"ALL OUT !!!!!"<<endl;
+					c=getchar();
+					t[tn].output(tn);
+					break;
+				}
 				c=getchar();
-				t[tn].output();
-				break;
 			}
-		}
-		cout<<"OVER UP !!"<<endl;
+			cout<<"OVER UP !!"<<endl;
 		
-		if(tn==0)
-			t[1].p[bw].put_player();
-		else
-			t[0].p[bw].put_player();
-		bw--;
-		if(i==5)
-			bw=10;
+			if(tn==0)
+				t[1].p[bw].put_player(1);
+			else
+				t[0].p[bw].put_player(1);
+			bw--;
+			if(i==5)
+				bw=10;
+			c=getchar();
+		}
+		cout<<"\n\n"<<t[tn].retnm()<<"'s innings is up !!"<<endl;
+		tn=swap(tn);
 	}
-
+	cout<<"\n\n\n";
+	int a,b;
+	a=t[tn].ret_run();
+	cout<<a<<"is "<<t[tn].retnm()<<"'s score !!"<<endl;
+	tn=swap(tn);
+	b=t[tn].ret_run();
+	cout<<b<<"is "<<t[tn].retnm()<<"'s score !!"<<endl;
+	
+	if(a>b)
+	{
+		tn=swap(tn);
+		cout<<"\n\n\n"<<t[tn].retnm()<<" WON THE MATCH !!!!!"<<endl;
+		c=getchar();
+		t[tn].output(3);
+		c=getchar();
+	}
+	else if(b>a)
+	{
+		cout<<"\n\n\n"<<t[tn].retnm()<<" WON THE MATCH !!!!!"<<endl;
+		c=getchar();
+		t[tn].output(3);
+		c=getchar();
+	}
+	else
+		cout<<"\n\n\n"<<"TIE !!!!!!"<<endl;
+	
 	save_file(t[0],t[1]);
 	
 	return 0;
