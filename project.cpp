@@ -40,12 +40,23 @@ class bowl
 
 		void bwl_cs(int ball,int speed)
 		{
+			cout<<"z"<<endl;
 			if(ball==-1)
+			{
+				cout<<"x"<<endl;
 				wkts++;
+			}
 			else
+			{
+				cout<<"c"<<endl;
 				runs+=ball;
+			}
+			cout<<"v"<<endl;
 			balls++;
-			eco=(balls/wkts);
+			cout<<"balls"<<endl;
+			if(wkts!=0)
+				eco=(balls/wkts);
+			cout<<"eco"<<endl;
 		}
 		int ret_bwlpts()
 		{
@@ -148,7 +159,6 @@ class player:public bat,public bowl
 {
 	private:
 		char nm[30];
-		pairup p;
 		friend class team;
 	public:
 		player()
@@ -185,20 +195,35 @@ class team
 	private:
 		static int tno;
 		int teamno;
-		char team_nm[30];         
-		player p[11];
+		char team_nm[30];
+		int r;
 		friend class player;
 	public:         
+		player p[11];
+	
 		team()//default constructor         
-		{             
+		{     
+			r=0;
 			strcpy(team_nm,"");
 			tno++;
 			teamno=tno;
 		}
-		void read_playerinfo();		
-		void input()         
+		char* retnm()
+		{
+			return team_nm;
+		}
+		void inc_run(int x)
+		{
+			r+=x;
+		}
+		int ret_run()
+		{
+			return r;
+		}
+		void read_playerinfo();
+		void input()
 		{             
-			cout<<teamno<<"Enter the team's name: "<<endl;             
+			cout<<"Enter the team "<<teamno<<"'s name: "<<endl;             
 			cin>>team_nm;
 			read_playerinfo();
 		}         
@@ -208,21 +233,6 @@ class team
 			for(int i=0;i<11;i++)
 				p[i].put_player();
 		}
-        int cmp_player(player pl)
-        {
-            int temp0=p[0].ret_batpts();
-            int temp1=pl.ret_bwlpts();
-            if((temp0>7)&&(temp1>7))
-                return 0;
-            else if((temp0>7)&&(temp1<=7))
-                return 1;
-            else if((temp0<=7)&&(temp1>7))
-                return 2;
-            else if((temp0<=7)&&(temp1<=7))
-                return 4;
-            return -1;
-        }
-
 };
 int team::tno = 0;
 void team::read_playerinfo()
@@ -270,11 +280,11 @@ void team::read_playerinfo()
 		}
 	}
 }
-int randomize()
+int randomize(int a=10)
 {
 	time_t t;
 	srand((unsigned) time(&t));
-	return(rand()%10);
+	return(rand()%a);
 }
 
 void save_file(team &t1,team &t2)
@@ -289,21 +299,117 @@ void save_file(team &t1,team &t2)
 	file.write((char*)&t2,sizeof(team));
 	file.close();
 }
-int score_calc(int no)
+
+int cmp_player(player tm1, player tm2)
+{
+    int temp0=tm1.ret_batpts();
+    int temp1=tm2.ret_bwlpts();
+    if((temp0>7)&&(temp1>7))
+        return 0;
+    else if((temp0>7)&&(temp1<=7))
+        return 1;
+    else if((temp0<=7)&&(temp1>7))
+        return 2;
+    else if((temp0<=7)&&(temp1<=7))
+        return 3;
+    else
+		return -1;
+}
+
+int run(int no)
 {
 	int runs[10],i;
 	for(i=0;i<10;i++)
 		runs[i]=arr[no][i];
 	return runs[randomize()];
 }
+
+int cointoss(char* tmnm1, char* tmnm2)
+{
+	int i,ran;
+
+	cout<<"the coin is being tossed"<<endl;
+
+	ran=randomize(2);
+
+	if(ran==0)
+	{
+		cout<<endl<<tmnm1<<" wins the \"TOSS\" and choose to bat"<<endl;
+		return 0;
+	}
+	else
+	{
+		cout<<endl<<tmnm2<<" wins the \"TOSS\" and choose to bat"<<endl;
+		return 1;
+	}
+}
+
 int main()
 {
-	team t1,t2;
-	t1.input();
-	t2.input();
-	save_file(t1,t2);
-	t1.output();
-	t2.output();
-	cout<<score_calc(1);
+	int tn,i,j,k;
+	char c;
+	team t[2];
+	
+	t[0].input();
+	t[1].input();
+	tn=cointoss(t[0].retnm(),t[1].retnm());
+
+	int bt=0,bw=11,r,n;
+	for(i=0;i<10;i++)
+	{
+		cout<<1<<endl;
+		for(j=0;j<6;j++)
+		{
+			cout<<2<<endl;
+			if(tn==0)
+				n=cmp_player(t[0].p[bt],t[1].p[bt]);
+			else
+				n=cmp_player(t[1].p[bt],t[0].p[bt]);
+			r=run(n);
+			cout<<3<<endl;
+			if(tn==0)
+			{
+				cout<<"a"<<endl;
+				t[0].p[bt].bat_cs(r);
+				cout<<"A"<<endl;
+				t[1].p[bw].bwl_cs(r,100);
+			}
+			else
+			{
+				cout<<"b"<<endl;
+				t[1].p[bt].bat_cs(r);
+				cout<<"B"<<endl;
+				t[0].p[bw].bwl_cs(r,100);
+				cout<<"bB"<<endl;
+			}
+			cout<<4<<endl;
+			if(r==-1)
+			{
+				cout<<"OUT !!!!!"<<endl;
+				t[tn].p[bt].put_player();
+				bt++;
+			}
+			else
+				t[tn].inc_run(r);
+			if(bt==12)
+			{
+				cout<<"ALL OUT !!!!!"<<endl;
+				c=getchar();
+				t[tn].output();
+				break;
+			}
+		}
+		cout<<"OVER UP !!"<<endl;
+		if(tn==0)
+			t[1].p[bw].put_player();
+		else
+			t[0].p[bw].put_player();
+		bw--;
+		if(i==5)
+			bw=11;
+	}
+
+	save_file(t[0],t[1]);
+	
 	return 0;
 }
