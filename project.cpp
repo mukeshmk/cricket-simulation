@@ -227,12 +227,7 @@ class team
 			return r;
 		}
 		void read_playerinfo();
-		void input()
-		{
-			cout<<"Enter the team "<<teamno<<"'s name: "<<endl;
-			cin>>team_nm;
-			read_playerinfo();
-		}
+		friend istream& operator >> (istream& in, team &t);
 		friend ostream& operator << (ostream& out, team &t);
 };
 int team::tno = 0;
@@ -241,6 +236,14 @@ ostream& operator << (ostream& out, team &t)
 	out<<"The team's name: "<<t.team_nm<<endl<<endl;
 	for(int i=0;i<11;i++)
 		t.p[i].put_player(tn);
+	return out;
+}
+istream& operator >> (istream& in, team &t)
+{             
+		cout<<"Enter the team "<<t.teamno<<"'s name: "<<endl;
+		in>>t.team_nm;
+		t.read_playerinfo();
+		return in;
 }
 void team::read_playerinfo()
 {
@@ -363,8 +366,8 @@ int main()
 
 	srand(time(NULL));
 	
-	t[0].input();
-	t[1].input();
+	cin>>t[0];
+	cin>>t[1];
 	
 	tn=cointoss(t[0].retnm(),t[1].retnm());
 	c=getchar();
@@ -377,6 +380,7 @@ int main()
 		{
 			for(j=0;j<6;j++)
 			{
+				
 				if(tn==0)
 					n=cmp_player(t[0].p[bt],t[1].p[bt]);
 				else
