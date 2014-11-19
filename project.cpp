@@ -8,7 +8,6 @@
 using namespace std;
 
 class team;
-//int arr[4][10] ={{1,2,3,4,5,6,7,8,9,10},{11,12,13,14,15,16,17,18,19,20},{21,22,23,24,25,26,27,28,29,30},{31,32,33,34,35,36,37,38,39,40}};
 int arr[4][10]={{-1,-1,0,0,1,2,4,4,6,6},{-1,-1,1,2,2,4,4,6,6,6},{-1,-1,-1,0,0,1,2,2,4,4},{	-1,-1,0,0,1,1,1,2,2,2}},tn;
 
 class bowl
@@ -114,7 +113,8 @@ class bat {
 		{             
 			num_ball++;             
 			if(!(scr==-1))             
-				score+=scr;             
+				score+=scr;
+			high_score=score;
 			average=score/num_ball;          
 		}
 
@@ -415,7 +415,6 @@ int main()
 				{
 					cout<<"ALL OUT !!!!!"<<endl;
 					c=getchar();
-					//t[tn].output(tn);
 					cout<<t[tn]<<endl;
 					break;
 				}
@@ -447,18 +446,24 @@ int main()
 	{
 		tn=swap(tn);
 		cout<<"\n\n\n"<<t[tn].retnm()<<" WON THE MATCH !!!!!"<<endl;
-		c=getchar();
-		//t[tn].output(3);
-		cout<<t[tn]<<endl;
-		c=getchar();
+		cout<<"Do you want to see the team stats?(y/n)"<<endl;
+		cin>>c;
+		if(c=='y'||c=='Y')
+		{
+			cout<<t[tn]<<endl;
+			c=getchar();
+		}
 	}
 	else if(b>a)
 	{
 		cout<<"\n\n\n"<<t[tn].retnm()<<" WON THE MATCH !!!!!"<<endl;
-		c=getchar();
-		//t[tn].output(3);
-		cout<<t[tn]<<endl;
-		c=getchar();
+		cout<<"Do you want to see the team stats?(y/n)"<<endl;
+		cin>>c;
+		if(c=='y'||c=='Y')
+		{
+			cout<<t[tn]<<endl;
+			c=getchar();
+		}
 	}
 	else
 		cout<<"\n\n\n"<<"TIE !!!!!!"<<endl;
