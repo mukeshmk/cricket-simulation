@@ -356,7 +356,7 @@ int swap(int tn)
 }
 int main()
 {
-	int tn,i,j,k,wkt[2]={0,0};
+	int tn,i,j,k,wkt[2]={0,0},bt=0,bw=10,r,n;
 	char c;
 	team t[2];
 
@@ -367,7 +367,16 @@ int main()
 	tn=cointoss(t[0].retnm(),t[1].retnm());
 	c=getchar();
 	
-	int bt=0,bw=10,r,n;
+	fstream plot[2];
+
+	plot[0].open("plot1.txt",ios::out);
+	plot[1].open("plot2.txt",ios::out);
+
+	if(!plot[0] || !plot[1])
+	{
+		cout<<"file not opened !!"<<endl;
+		return 0;
+	}
 	for(k=0;k<2;k++)
 	{
 		cout<<"\n\n"<<t[tn].retnm()<<" is Batting !!"<<endl;
@@ -405,6 +414,10 @@ int main()
 					cout<<"the team score is: "<<t[tn].ret_run()<<"/"<<wkt[tn]<<" in "<<i<<"."<<j+1<<" overs"<<endl;
 				else
 					cout<<"the team score is: "<<t[tn].ret_run()<<"/"<<wkt[tn]<<" in "<<i+1<<"."<<0<<" overs"<<endl;
+				if(r!=-1)
+					plot[k]<<t[tn].ret_run()<<endl;
+				else
+					plot[k]<<r<<endl;
 				if(bt==12)
 				{
 					cout<<"ALL OUT !!!!!"<<endl;
@@ -455,6 +468,9 @@ int main()
 		cout<<"\n\n\n"<<"TIE !!!!!!"<<endl;
 	
 	save_file(t[0],t[1]);
+	
+	plot[0].close();
+	plot[1].close();
 	
 	return 0;
 }
