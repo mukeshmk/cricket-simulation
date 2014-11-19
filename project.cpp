@@ -8,8 +8,8 @@
 using namespace std;
 
 class team;
-int arr[4][10] ={{1,2,3,4,5,6,7,8,9,10},{11,12,13,14,15,16,17,18,19,20},{21,22,23,24,25,26,27,28,29,30},{31,32,33,34,35,36,37,38,39,40}};
-//int arr[4][10]={{-1,-1,0,0,1,2,4,4,6,6},{-1,-1,1,2,2,4,4,6,6,6},{-1,-1,-1,0,0,1,2,2,4,4},{	-1,-1,0,0,1,1,1,2,2,2}};
+//int arr[4][10] ={{1,2,3,4,5,6,7,8,9,10},{11,12,13,14,15,16,17,18,19,20},{21,22,23,24,25,26,27,28,29,30},{31,32,33,34,35,36,37,38,39,40}};
+int arr[4][10]={{-1,-1,0,0,1,2,4,4,6,6},{-1,-1,1,2,2,4,4,6,6,6},{-1,-1,-1,0,0,1,2,2,4,4},{	-1,-1,0,0,1,1,1,2,2,2}};
 
 class bowl
 {
@@ -26,7 +26,6 @@ class bowl
 	public:
 		bowl()
 		{
-			cout<<"mukesh"<<endl;
 			bwl_pts=0;
 			runs=0;
 			strcpy(bwl_typ,"");
@@ -41,23 +40,13 @@ class bowl
 
 		void bwl_cs(int ball,int speed)
 		{
-			cout<<"z"<<endl;
 			if(ball==-1)
-			{
-				cout<<"x"<<endl;
 				wkts++;
-			}
 			else
-			{
-				cout<<"c"<<endl;
 				runs+=ball;
-			}
-			cout<<"v"<<endl;
 			balls++;
-			cout<<"balls"<<endl;
 			if(wkts!=0)
 				eco=(balls/wkts);
-			cout<<"eco"<<endl;
 			spd=speed;
 		}
 		int ret_bwlpts()
@@ -361,33 +350,24 @@ int main()
 	int bt=0,bw=10,r,n;
 	for(i=0;i<2;i++)
 	{
-		cout<<1<<endl;
 		for(j=0;j<2;j++)
 		{
-			cout<<2<<endl;
 			if(tn==0)
 				n=cmp_player(t[0].p[bt],t[1].p[bt]);
 			else
 				n=cmp_player(t[1].p[bt],t[0].p[bt]);
 			r=run(n);
 			cout<<"runs: "<<r<<endl;
-			cout<<3<<endl;
 			if(tn==0)
 			{
-				cout<<"a"<<endl;
 				t[0].p[bt].bat_cs(r);
-				cout<<"A"<<endl;
 				t[1].p[bw].bwl_cs(r,100);
 			}
 			else
 			{
-				cout<<"b"<<endl;
 				t[1].p[bt].bat_cs(r);
-				cout<<"B"<<endl;
 				t[0].p[bw].bwl_cs(r,100);
-				cout<<"bB"<<endl;
 			}
-			cout<<4<<endl;
 			if(r==-1)
 			{
 				cout<<"OUT !!!!!"<<endl;
@@ -396,6 +376,10 @@ int main()
 			}
 			else
 				t[tn].inc_run(r);
+			
+			c=getchar();
+			
+			cout<<"the team score is: "<<t[tn].ret_run()<<endl;
 			if(bt==12)
 			{
 				cout<<"ALL OUT !!!!!"<<endl;
@@ -405,6 +389,7 @@ int main()
 			}
 		}
 		cout<<"OVER UP !!"<<endl;
+		
 		if(tn==0)
 			t[1].p[bw].put_player();
 		else
