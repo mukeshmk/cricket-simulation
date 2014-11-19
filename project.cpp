@@ -189,7 +189,7 @@ void player::put_player(int x)
 		cout<<"batting data:"<<endl<<endl;
 		put_bat();
 	}
-	else
+	else if(x==1)
 	{
 		cout<<"bowling data:"<<endl<<endl;
 		put_bwl();
@@ -401,8 +401,10 @@ int main()
 				}
 				else
 					t[tn].inc_run(r);
-				
-				cout<<"the team score is: "<<t[tn].ret_run()<<"/"<<wkt[tn]<<" in "<<i<<"."<<j+1<<" overs"<<endl;
+				if(j<5)
+					cout<<"the team score is: "<<t[tn].ret_run()<<"/"<<wkt[tn]<<" in "<<i<<"."<<j+1<<" overs"<<endl;
+				else
+					cout<<"the team score is: "<<t[tn].ret_run()<<"/"<<wkt[tn]<<" in "<<i+1<<"."<<0<<" overs"<<endl;
 				if(bt==12)
 				{
 					cout<<"ALL OUT !!!!!"<<endl;
@@ -429,10 +431,10 @@ int main()
 	cout<<"\n\n\n";
 	int a,b;
 	a=t[tn].ret_run();
-	cout<<a<<"is "<<t[tn].retnm()<<"'s score !!"<<endl;
+	cout<<a<<"/"<<wkt[tn]<<" is "<<t[tn].retnm()<<"'s score !!"<<endl;
 	tn=swap(tn);
 	b=t[tn].ret_run();
-	cout<<b<<"is "<<t[tn].retnm()<<"'s score !!"<<endl;
+	cout<<b<<"/"<<wkt[tn]<<" is "<<t[tn].retnm()<<"'s score !!"<<endl;
 	
 	if(a>b)
 	{
