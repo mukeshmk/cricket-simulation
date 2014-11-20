@@ -308,6 +308,19 @@ void save_file(team &t1,team &t2)
 	file.close();
 }
 
+void read_file(team &t1,team &t2)
+{
+	fstream file("matchdata.dat",ios::in);
+	if(!file)
+	{
+		cout<<"file not opened !!"<<endl;
+		return ;
+	}
+	file.read((char*)&t1,sizeof(team));
+	file.read((char*)&t2,sizeof(team));
+	file.close();
+}
+
 int cmp_player(player tm1, player tm2)
 {
     int temp0=tm1.ret_batpts();
@@ -461,7 +474,7 @@ int main()
 	else if(b>a)
 	{
 		cout<<"\n\n\n"<<t[tn].retnm()<<" WON THE MATCH !!!!!"<<endl;
-		cout<<"Do you want to see the team stats?(y/n)"<<endl;
+		cout<<"Do you want to see the winning team's stats?(y/n)"<<endl;
 		cin>>c;
 		if(c=='y'||c=='Y')
 		{
@@ -474,5 +487,14 @@ int main()
 	
 	save_file(t[0],t[1]);
 	
+	cout<<"do you want to see the entire match stats??"<<endl;
+	cin>>c;
+	if(c=='y'||c=='Y')
+	{
+		read_file(t[0],t[1]);
+		cout<<t[tn]<<endl;
+		tn=swap(tn);
+		cout<<t[tn]<<endl;
+	}
 	return 0;
 }
