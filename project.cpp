@@ -331,6 +331,10 @@ int run(int no)
 		runs[i]=arr[no][i];
 	return runs[randomize()];
 }
+int spd_rand()
+{
+	return 100+randomize(100);
+}
 
 int cointoss(char* tmnm1, char* tmnm2)
 {
@@ -391,12 +395,12 @@ int main()
 				if(tn==0)
 				{	
 					t[0].p[bt].bat_cs(r);
-					t[1].p[bw].bwl_cs(r,100);
+					t[1].p[bw].bwl_cs(r,spd_rand());
 				}
 				else
 				{
 					t[1].p[bt].bat_cs(r);
-					t[0].p[bw].bwl_cs(r,100);
+					t[0].p[bw].bwl_cs(r,spd_rand());
 				}
 				if(r==-1)
 				{
