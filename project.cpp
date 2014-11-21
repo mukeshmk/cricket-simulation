@@ -369,8 +369,8 @@ int main()
 	
 	fstream plot[2];
 
-	plot[0].open("plot1.txt",ios::out);
-	plot[1].open("plot2.txt",ios::out);
+	plot[0].open("plot1.xls",ios::out);
+	plot[1].open("plot2.xls",ios::out);
 
 	if(!plot[0] || !plot[1])
 	{
@@ -415,6 +415,8 @@ int main()
 				else
 					cout<<"the team score is: "<<t[tn].ret_run()<<"/"<<wkt[tn]<<" in "<<i+1<<"."<<0<<" overs"<<endl;
 				if(r!=-1)
+					plot[k]<<t[tn].ret_run()<<endl;
+				else
 					plot[k]<<t[tn].ret_run()<<endl;
 				if(bt==12)
 				{
