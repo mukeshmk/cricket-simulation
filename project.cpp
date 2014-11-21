@@ -416,8 +416,6 @@ int main()
 					cout<<"the team score is: "<<t[tn].ret_run()<<"/"<<wkt[tn]<<" in "<<i+1<<"."<<0<<" overs"<<endl;
 				if(r!=-1)
 					plot[k]<<t[tn].ret_run()<<endl;
-				else
-					plot[k]<<r<<endl;
 				if(bt==12)
 				{
 					cout<<"ALL OUT !!!!!"<<endl;
