@@ -377,7 +377,7 @@ int swap(int tn)
 }
 int main()
 {
-	int i,j,k,wkt[2]={0,0},bt=0,bw=10,r,n;
+	int i,j,k,wkt[2]={0,0},bt=0,bw=10,r,n,ba=0;
 	char c;
 	team t[2];
 
@@ -389,12 +389,10 @@ int main()
 	tn=cointoss(t[0].retnm(),t[1].retnm());
 	c=getchar();
 	
-	fstream plot[2];
+	fstream plt;
 
-	plot[0].open("plot1.xls",ios::out);
-	plot[1].open("plot2.xls",ios::out);
-
-	if(!plot[0] || !plot[1])
+	plt.open("plot.txt",ios::out);
+	if(!plt)
 	{
 		cout<<"file not opened !!"<<endl;
 		return 0;
@@ -402,6 +400,7 @@ int main()
 
 	for(k=0;k<2;k++)
 	{
+		ba=1;
 		cout<<"\n\n"<<t[tn].retnm()<<" is Batting !!"<<endl;
 		for(i=0;i<4;i++)
 		{
@@ -440,10 +439,12 @@ int main()
 					cout<<"the team score is: "<<t[tn].ret_run()<<"/"<<wkt[tn]<<" in "<<i+1<<"."<<0<<" overs"<<endl;
 
 				if(r!=-1)
-					plot[k]<<t[tn].ret_run()<<endl;
+					plt<<ba<<" "<<t[tn].ret_run()<<endl;
 				else
-					plot[k]<<t[tn].ret_run()<<endl;
-
+					plt<<ba<<" "<<t[tn].ret_run()<<endl;
+				
+				ba++;
+				
 				if(bt==12)
 				{
 					cout<<"ALL OUT !!!!!"<<endl;
@@ -466,6 +467,7 @@ int main()
 		}
 		cout<<"\n\n"<<t[tn].retnm()<<"'s innings is up !!"<<endl;
 		tn=swap(tn);
+		plt<<"\n\n";
 	}
 	cout<<"\n\n\n";
 	int a,b;
@@ -513,8 +515,6 @@ int main()
 		cout<<t[tn]<<endl;
 	}
 
-	plot[0].close();
-	plot[1].close();
-	
+	plt.close();
 	return 0;
 }
