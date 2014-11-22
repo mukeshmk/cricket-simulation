@@ -252,7 +252,7 @@ void team::read_playerinfo()
 	fstream file("playerinfo.txt",ios::in);
 	if(!file)
 	{
-		cout<<"file not opened !!"<<endl;
+		cout<<"Sorry, Match cancelled due to rain !!"<<endl;
 		return ;
 	}
 	if(teamno==1)
@@ -300,7 +300,7 @@ void save_file(team &t1,team &t2)
 	fstream file("matchdata.dat",ios::out);
 	if(!file)
 	{
-		cout<<"file not opened !!"<<endl;
+		cout<<"Sorry, Match cancelled due to rain !!"<<endl;
 		return ;
 	}
 	file.write((char*)&t1,sizeof(team));
@@ -313,7 +313,7 @@ void read_file(team &t1,team &t2)
 	fstream file("matchdata.dat",ios::in);
 	if(!file)
 	{
-		cout<<"file not opened !!"<<endl;
+		cout<<"Sorry, Match cancelled due to rain !!"<<endl;
 		return ;
 	}
 	file.read((char*)&t1,sizeof(team));
@@ -351,7 +351,7 @@ int spd_rand()
 
 int cointoss(char* tmnm1, char* tmnm2)
 {
-	int i,ran;
+	int ran;
 
 	cout<<"the coin is being tossed"<<endl;
 
@@ -377,7 +377,7 @@ int swap(int tn)
 }
 int main()
 {
-	int i,j,k,wkt[2]={0,0},bt=0,bw=10,r,n,ba=0;
+	int i,j,k,wkt[2]={0,0},bt=0,bw=10,r,n,ba=0,f;
 	char c;
 	team t[2];
 
@@ -394,10 +394,15 @@ int main()
 	plt.open("plot.txt",ios::out);
 	if(!plt)
 	{
-		cout<<"file not opened !!"<<endl;
+		cout<<"Sorry, Match cancelled due to rain !!"<<endl;
 		return 0;
 	}
-
+	cout<<"Choose !! \n1.See Entire Match !!\n2.See the final results !!\n";
+	cout<<"(any other option - you will see the enire match)"<<endl;
+	cin>>f;
+	if(f!=1&&f!=2)
+		f=1;
+	c=getchar();
 	for(k=0;k<2;k++)
 	{
 		ba=1;
@@ -448,11 +453,13 @@ int main()
 				if(bt==12)
 				{
 					cout<<"ALL OUT !!!!!"<<endl;
-					c=getchar();
+					if(f==1)
+						c=getchar();
 					cout<<t[tn]<<endl;
 					break;
 				}
-				c=getchar();
+				if(f==1)
+					c=getchar();
 			}
 			cout<<"OVER UP !!"<<endl;
 		
@@ -463,7 +470,8 @@ int main()
 			bw--;
 			if(i==5)
 				bw=10;
-			c=getchar();
+			if(f==1)
+				c=getchar();
 		}
 		cout<<"\n\n"<<t[tn].retnm()<<"'s innings is up !!"<<endl;
 		tn=swap(tn);
