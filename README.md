@@ -1,6 +1,6 @@
 Cricket-Simulation
 ==================
-This is my 3rd Sem Project. It simulates a cricket match between two teams.
+This is our 3rd Sem C++ Project. It simulates a cricket match between two teams.
 
 Instructions on how to use:-
 
