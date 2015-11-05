@@ -253,7 +253,9 @@ void team::read_playerinfo()
 	if(!file)
 	{
 		cout<<"Sorry, Match cancelled due to rain !!"<<endl;
-		return ;
+		cout<<"(Check all files!!)"<<endl;
+		char c = getchar();
+		exit(0);
 	}
 	if(teamno==1)
 		for(i=0;i<11;i++)
@@ -301,7 +303,9 @@ void save_file(team &t1,team &t2)
 	if(!file)
 	{
 		cout<<"Sorry, Match cancelled due to rain !!"<<endl;
-		return ;
+		cout<<"(Check all files!!)"<<endl;
+		char c = getchar();
+		exit(0);
 	}
 	file.write((char*)&t1,sizeof(team));
 	file.write((char*)&t2,sizeof(team));
@@ -314,7 +318,9 @@ void read_file(team &t1,team &t2)
 	if(!file)
 	{
 		cout<<"Sorry, Match cancelled due to rain !!"<<endl;
-		return ;
+		cout<<"(Check all files!!)"<<endl;
+		char c = getchar();
+		exit(0);
 	}
 	file.read((char*)&t1,sizeof(team));
 	file.read((char*)&t2,sizeof(team));
@@ -395,7 +401,9 @@ int main()
 	if(!plt)
 	{
 		cout<<"Sorry, Match cancelled due to rain !!"<<endl;
-		return 0;
+		cout<<"(Check all files!!)"<<endl;
+		char c = getchar();
+		exit(0);
 	}
 	cout<<"Choose !! \n1.See Entire Match !!\n2.See the final results !!\n";
 	cout<<"(any other option - you will see the enire match)"<<endl;
